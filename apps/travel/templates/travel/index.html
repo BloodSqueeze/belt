@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login and Registration</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+    {% for message in messages %}
+    <h3 style="color:red">*{{message}}</h3>
+    {% endfor %}
+    <h1>Registration</h1>
+    <form action="/register" method="POST">
+        {% csrf_token %}
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name"><br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name"><br>
+        <label for="email">Email:</label>
+        <input type="text" name="email"><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password"><br>
+        <label for="pass_confirm">Confirm Password:</label>
+        <input type="password" name="pass_confirm"><br><br>
+        <input type="submit" value="Register">
+    </form> <hr>
+
+    <hr>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+        {% csrf_token %}
+        <label for="email">Email:</label>
+        <input name="email" type="email"><br>
+        <label for="password">Password:</label>
+        <input name="password" type="password"><br>
+        <input type="submit" value="-- Login --">
+    </form>
+
+</body>
+</html>

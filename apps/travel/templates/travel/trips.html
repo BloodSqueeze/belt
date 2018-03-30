@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+<body>
+    <h1>Welcome {{user.first_name}}</h1> <a href="/logout">Logout</a><hr>
+    {% for message in messages %}
+    <h3 style="color:red">*{{message}}</h3>
+    {% endfor %} <br><hr>
+    <a href="/add">Add Travel Plan</a>
+    <h1>Your Trip Schedules</h1>
+    <table>
+        <tr>
+            <th><h3>Destination</h3></th>
+            <th><h3>Description</h3></th>
+            <th><h3>Start Date</h3></th>
+            <th><h3>End Date</h3></th>
+        </tr>
+        {% for trip in trips %}
+        <tr>
+            <td><a href="/show/{{trip.id}}">{{trip.destination}}</a></td>
+            <td>{{trip.description}}</td>
+            <td>{{trip.start}}</td>
+            <td>{{trip.finish}}</td>
+        </tr>{% endfor %}
+        {% for mtrip in created_trips %}
+        <tr>
+            <td><a href="/show/{{mtrip.id}}">{{mtrip.destination}}</a></td>
+            <td>{{mtrip.description}}</td>
+            <td>{{mtrip.start}}</td>
+            <td>{{mtrip.finish}}</td>
+        </tr>
+        {% endfor %}
+        
+    </table><br><hr><br>
+    <h1>Other User's Travel Plan</h1>
+    <table>
+        <tr>
+            <th><h3>Creator</h3></th>
+            <th><h3>Destination</h3></th>
+            <th><h3>Description</h3></th>
+            <th><h3>Start Date</h3></th>
+            <th><h3>End Date</h3></th>
+            <th><h3>Actions</h3></th>
+        </tr>
+        {% for trip in other_trips %}
+        <tr>
+            <td>{{trip.creator.first_name}} {{trip.creator.last_name}}</td>
+            <td><a href="/show/{{trip.id}}">{{trip.destination}}</a></td>
+            <td>{{trip.description}}</td>
+            <td>{{trip.start}}</td>
+            <td>{{trip.finish}}</td>
+            <td><form action="/enroll/{{trip.id}}" method="POST" style="display:inline-block"> {% csrf_token %}
+                <input type="submit" value="Enroll" style="display:inline-block"></form>
+        </tr>
+        {% endfor %}
+    </table><hr>
